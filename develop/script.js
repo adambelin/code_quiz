@@ -1,3 +1,5 @@
+
+
 let myQuestions = [
     {
         question: "Commonly used data types do not include?",
@@ -49,13 +51,14 @@ let myQuestions = [
 ]
 
 function answerQuestion(answer, correctAnswer){
+    $("#result").removeClass("hidden");
     if (answer===correctAnswer) {
-        alert("correct dumbass");
+        $("#result").html("correct");
     }
     else {
-        alert("quit being stupid")
+        $("#result").html("incorrect");
     }
-    console.log(answer);
+ 
     myQuestions.shift ();
     nextQuestion();
 }
@@ -66,6 +69,8 @@ function startQuiz() {
 
 function endQuiz() {
     alert("good job pp head")
+    $("#question").addClass("hidden")
+    $("#enter_intial").removeClass("hidden")
 }
 
 function nextQuestion(){
