@@ -1,4 +1,4 @@
-var myQuestions = [
+let myQuestions = [
     {
         question: "Commonly used data types do not include?",
         answers: {
@@ -48,17 +48,9 @@ var myQuestions = [
     },
 ]
 
-function showQuestions(questions, quizContainer){
-
-    var output = [];
-
-    var answers;
-
-    for(var i=0; i<questions.length; i++){
-
-        answers = [];
-
-    }
+function startQuiz(){
+    $("#rules").addClass("hidden");
 }
 
+$ ("#start").click(startQuiz);
 
