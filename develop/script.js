@@ -1,4 +1,8 @@
-
+let startTime = 0
+const timerSeconds = 30
+let timerOffset = 0
+let currentTimer = timerSeconds
+let intervalId = 0
 
 let myQuestions = [
     {
@@ -57,6 +61,7 @@ function answerQuestion(answer, correctAnswer){
     }
     else {
         $("#result").html("incorrect");
+        timerOffset += 10;
     }
  
     myQuestions.shift ();
@@ -65,12 +70,14 @@ function answerQuestion(answer, correctAnswer){
 
 function startQuiz() {
     nextQuestion();
+    startTimer();
 }
 
 function endQuiz() {
-    alert("good job pp head")
-    $("#question").addClass("hidden")
-    $("#enter_intial").removeClass("hidden")
+    $("#question").addClass("hidden");
+    $("#enter_initial").removeClass("hidden");
+    clearInterval(intervalId);
+    $("#final_score").html(currentTimer);
 }
 
 function nextQuestion(){
@@ -99,6 +106,26 @@ function nextQuestion(){
     $ ("#answer_d").off("click").click(function (){
         answerQuestion("d", question.correctAnswer);
     });
+}
+
+function startTimer() {
+    startTime = Date.now();
+    console.log (startTime);
+
+
+    intervalId = setInterval(function(){
+        let now = Date.now();
+        let delta = Math.floor((now - startTime)/1000);
+        currentTimer = timerSeconds - (delta + timerOffset);
+        
+        if (currentTimer > 0){
+            $("#current_time").html(currentTimer);
+        }
+
+        else {
+            $("#current_time").html("Time is up!");
+        }
+    }, 500);
 }
 
 $ ("#start").click(startQuiz);

@@ -5,3 +5,20 @@
 .answer_list {
     list-style-type: none;
 }
+
+.shift_right {
+    float: right;
+}
+
+.inline {
+    display: inline-block;
+}
+
+header {
+    padding: 10px;
+}
+
+.timer {
+    font-size: 
+}
+
