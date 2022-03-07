@@ -1,5 +1,5 @@
 let startTime = 0
-const timerSeconds = 30
+const timerSeconds = 40
 let timerOffset = 0
 let currentTimer = timerSeconds
 let intervalId = 0
@@ -81,15 +81,15 @@ function answerQuestion(answer, correctAnswer){
 function startQuiz() {
     nextQuestion();
     startTimer();
-   
 }
 
 function saveHighScore(currentScore) {
     let currentHighScore = localStorage.getItem ("high score");
-
+    console.log(currentHighScore);
     if(currentHighScore) {
         let highScore = Math.max(currentHighScore, currentScore);
         localStorage.setItem("high score", highScore);
+        localStorage.setItem("initials", $("#initials").val());
     }
     else {
         localStorage.setItem("high score", currentScore);
@@ -114,14 +114,6 @@ function endQuiz() {
         }
 
     $("#final_score").html(currentTimer);
-
-    saveHighScore(currentTimer)
-
-    let highScore = localStorage.getItem("high score");
-    console.log(highScore);
-    $("#high-score").html(highScore);
-
-    localStorage.setItem ("high score", currentTimer)
 }
 
 function nextQuestion(){
@@ -174,3 +166,13 @@ function startTimer() {
 
 $ ("#start").click(startQuiz);
 
+function submitScore() {
+    saveHighScore(currentTimer)
+
+    let initals = $("#initials").val()
+    let highScore = localStorage.getItem("initals", initials);
+    console.log(highScore);
+    $("#high-score", "#initials").html(highScore);
+}
+
+$ ("#submit").click(submitScore);
