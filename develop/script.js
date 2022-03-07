@@ -54,6 +54,16 @@ let myQuestions = [
     },
 ]
 
+$(document).ready(function () {
+    let currentHighScore = localStorage.getItem("high score");
+    if (currentHighScore) {
+        $("#high-score").html(currentHighScore);
+    }
+    else{
+        $("#high-score").html("n/a");
+    }
+})
+
 function answerQuestion(answer, correctAnswer){
     $("#result").removeClass("hidden");
     if (answer===correctAnswer) {
@@ -71,13 +81,47 @@ function answerQuestion(answer, correctAnswer){
 function startQuiz() {
     nextQuestion();
     startTimer();
+   
+}
+
+function saveHighScore(currentScore) {
+    let currentHighScore = localStorage.getItem ("high score");
+
+    if(currentHighScore) {
+        let highScore = Math.max(currentHighScore, currentScore);
+        localStorage.setItem("high score", highScore);
+    }
+    else {
+        localStorage.setItem("high score", currentScore);
+    }
 }
 
 function endQuiz() {
     $("#question").addClass("hidden");
     $("#enter_initial").removeClass("hidden");
     clearInterval(intervalId);
+
+        let now = Date.now();
+        let delta = Math.floor((now - startTime)/1000);
+        currentTimer = timerSeconds - (delta + timerOffset);
+        
+        if (currentTimer > 0){
+            $("#current_time").html(currentTimer);
+        }
+
+        else {
+            $("#current_time").html("Time is up!");
+        }
+
     $("#final_score").html(currentTimer);
+
+    saveHighScore(currentTimer)
+
+    let highScore = localStorage.getItem("high score");
+    console.log(highScore);
+    $("#high-score").html(highScore);
+
+    localStorage.setItem ("high score", currentTimer)
 }
 
 function nextQuestion(){
